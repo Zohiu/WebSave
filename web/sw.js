@@ -22,7 +22,7 @@ self.addEventListener("install", (event) => {
 
 
 const putInCache = async (request, response) => {
-  const cache = await caches.open("v1");
+  const cache = await caches.open(cacheName);
   await cache.put(request, response);
 };
 

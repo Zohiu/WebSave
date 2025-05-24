@@ -16,13 +16,12 @@ single_file_executable = "single-file/single-file-x86_64-linux"
 
 @app.route("/")
 def main():
-    return send_from_directory('./web/', 'index.html')
+    return send_from_directory('web/', 'index.html')
 
 
 @app.route('/<path:path>')
-def sendstuff(path):
-	print(path)
-	return send_from_directory('./web/', path)
+def mainjs(path):
+	return send_from_directory('web/', path)
 
 
 @app.route("/get/<path:path>")

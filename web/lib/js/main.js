@@ -77,7 +77,7 @@ function removeSuffix(str, suffix) {
 async function requestDirectoryPermission() {
     const permission = await directory.queryPermission({ mode: 'readwrite' });
     if (permission != 'granted') {
-        const request = await fileHandle.requestPermission({ mode: 'readwrite' });
+        const request = await directory.requestPermission({ mode: 'readwrite' });
         if (request != 'granted') {
             appLoadError("No read/write permissions!")
             return false
@@ -168,7 +168,7 @@ async function addFileToDirectory(filename) {
 
 async function deleteFileFromDirectory(filename) {
     if (!requestDirectoryPermission()) return
-    
+
     try {
         await directory.removeEntry(filename);
     } catch (err) {

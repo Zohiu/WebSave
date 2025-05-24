@@ -243,7 +243,6 @@ function displayWebsite(file) {
     var fileURL = URL.createObjectURL(file)
     downloaderSection.hidden = true
     sectionSavedContainer.hidden = true
-    showSavedButton.hidden = false
     display.src = fileURL
 }
 
@@ -393,6 +392,7 @@ window.onload = () => {
     // When the iframe loads a website
     display.onload = function () {
         display.hidden = false
+        showSavedButton.hidden = false
     }
 
     // PWA stuff

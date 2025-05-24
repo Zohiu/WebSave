@@ -145,13 +145,6 @@ async function getFilesFromDatabase() {
     return files;
 }
 
-async function addFileToDirectory(filename) {
-    const file = await directory.getFileHandle(filename, { create: true })
-    const writable = await file.createWritable();
-    await writable.write(cachedHTML)
-    await writable.close()
-}
-
 async function deleteFileFromDirectory(filename) {
     try {
         await directory.removeEntry(filename);
@@ -338,7 +331,10 @@ window.onload = () => {
         if (unsupported) {
             await addFileToDatabase(`${filename}.html`)
         } else {
-            await addFileToDirectory(`${filename}.html`)
+            const file = await directory.getFileHandle(`${filename}.html`, { create: true })
+            const writable = await file.createWritable();
+            await writable.write(cachedHTML)
+            await writable.close()
         }
 
         displaySavedWebsites()

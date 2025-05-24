@@ -74,6 +74,18 @@ function removeSuffix(str, suffix) {
 
 // Website saving
 
+async function requestDirectoryPermission() {
+    const permission = await directory.queryPermission({ mode: 'readwrite' });
+    if (permission != 'granted') {
+        const request = await fileHandle.requestPermission({ mode: 'readwrite' });
+        if (request != 'granted') {
+            appLoadError("No read/write permissions!")
+            return false
+        }
+    }
+    return true
+}
+
 async function addFileToDatabase(filename) {
     const tx = db.transaction('files', 'readwrite');
     const store = tx.objectStore('files');
@@ -145,7 +157,18 @@ async function getFilesFromDatabase() {
     return files;
 }
 
+async function addFileToDirectory(filename) {
+    if (!requestDirectoryPermission()) return
+
+    const file = await directory.getFileHandle(filename, { create: true })
+    const writable = await file.createWritable();
+    await writable.write(cachedHTML)
+    await writable.close()
+}
+
 async function deleteFileFromDirectory(filename) {
+    if (!requestDirectoryPermission()) return
+    
     try {
         await directory.removeEntry(filename);
     } catch (err) {
@@ -155,6 +178,8 @@ async function deleteFileFromDirectory(filename) {
 }
 
 async function getFilesFromDirectory() {
+    if (!requestDirectoryPermission()) return
+
     sectionSaved.innerHTML = "";
 
     const files = [];
@@ -331,10 +356,7 @@ window.onload = () => {
         if (unsupported) {
             await addFileToDatabase(`${filename}.html`)
         } else {
-            const file = await directory.getFileHandle(`${filename}.html`, { create: true })
-            const writable = await file.createWritable();
-            await writable.write(cachedHTML)
-            await writable.close()
+            await addFileToDirectory(`${filename}.html`)
         }
 
         displaySavedWebsites()

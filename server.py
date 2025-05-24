@@ -2,6 +2,7 @@ from flask import Flask, send_from_directory
 import subprocess
 import uuid
 import mimetypes
+import os
 
 mimetypes.add_type('text/css', '.css')
 mimetypes.add_type('application/javascript', '.js')
@@ -10,8 +11,11 @@ mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
 
 # https://github.com/gildas-lormeau/single-file-cli
-single_file_executable = "single-file/single-file.exe"
-single_file_executable = "single-file/single-file-x86_64-linux"
+
+if os.name == "nt":
+    single_file_executable = "single-file/single-file.exe"
+else:
+    single_file_executable = "single-file/single-file-x86_64-linux"
 
 
 @app.route("/")

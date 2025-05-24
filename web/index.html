@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WebSave</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="lib/css/style.css">
+    <link rel="icon" href="favicon.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <button id="showSaved" hidden>Back</button>
+
+    <section id="downloaderSection">
+      <h1>WebSave - Website downloader</h1>
+      <p>
+        Save websites in a local directory to access them offline.<br>
+        Available as a progressive web app in supported browsers/devices.
+      </p>
+
+      <p id="selectDirWarning" hidden>Before you can use this, you have to select a directory.</p>
+      <button id="selectDir">Select directory</button>
+      <button id="install" hidden>Install as app</button>
+
+      <div id="unsupported" hidden>
+        <h4>Warning: Your browser does not support direct folder access!</h4>
+        <p>
+          All downloaded websites will be stored in local browser storage instead of your filesystem,
+          which means you won't be able to access the html files directly and can't easily transfer data between devices. 
+          Please consider using Chrome, Edge or Opera!
+        </p>
+      </div>
+
+      <form id="downloader" hidden>
+        <label for="website">Enter URL:</label>
+        <input name="website" id="website">
+        <button type="submit">Load Website</button>
+      </form>
+
+      <p id="error" hidden></p>
+
+      <section id="result" hidden>
+        <h2 id="resultTitle"></h2>
+        <p id="resultSubtitle"></p>
+        <button id="resultSave">Save</button>
+        <button id="resultAbort">Abort</button>
+        <p id="resultWarning">If the website has been saved before, it might be overwritten!</p>
+      </section>
+      
+
+      <h1 id="loading" hidden>Loading! <small>This might take some time.</small></h1>
+    </section>
+
+    <section id="savedSection">
+      <h1>Saved pages</h1>
+      <ul id="saved"></ul>
+    </section>
+
+    <iframe id="display" hidden></iframe>
+
+    <script src="lib/js/main.js" type="module" defer></script>
+  </body>
+</html>

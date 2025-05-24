@@ -1,6 +1,10 @@
 from flask import Flask, send_from_directory
 import subprocess
 import uuid
+import mimetypes
+
+mimetypes.add_type('text/css', '.css')
+mimetypes.add_type('text/js', '.js')
 
 
 app = Flask(__name__)
@@ -11,7 +15,7 @@ single_file_executable = "single-file/single-file-x86_64-linux"
 
 
 @app.route("/")
-def hello_world():
+def main():
     return send_from_directory('./web/', 'index.html')
 
 

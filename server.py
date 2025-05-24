@@ -4,7 +4,7 @@ import uuid
 import mimetypes
 
 mimetypes.add_type('text/css', '.css')
-mimetypes.add_type('text/js', '.js')
+mimetypes.add_type('application/javascript', '.js')
 
 
 app = Flask(__name__)

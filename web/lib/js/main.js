@@ -275,13 +275,25 @@ window.onload = () => {
             var transaction = db.transaction("settings", "readwrite")
             var objectStore = transaction.objectStore("settings")
             var request = objectStore.get("directory")
-            request.onsuccess = function () {
+            request.onsuccess = async function () {
                 if (!request.result) {
                     selectDirWarning.hidden = false
                     return
                 }  // No directory set.
                 directory = request.result.value
                 downloader.hidden = false
+                const permission = await directory.queryPermission({ mode: 'readwrite' });
+                if (permission != 'granted') {
+                    const button = document.createElement("button")
+                    button.textContent = "Load"
+                    button.onclick = async () => {
+                        await requestDirectoryPermission()
+                        displaySavedWebsites()
+                    }
+                    sectionSaved.appendChild(button)
+                    return
+                }
+
                 displaySavedWebsites()
             };
 

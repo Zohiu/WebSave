@@ -1,16 +1,14 @@
 from flask import Flask, send_from_directory
 import subprocess
-import uuid
 import mimetypes
 import os
 
+# mimetypes are taken directly from the system, so they might not be defined.
 mimetypes.add_type('text/css', '.css')
 mimetypes.add_type('application/javascript', '.js')
 
-
 app = Flask(__name__)
 
-# https://github.com/gildas-lormeau/single-file-cli
 
 if os.name == "nt":
     single_file_executable = "single-file/single-file.exe"

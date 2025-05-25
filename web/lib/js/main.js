@@ -102,7 +102,7 @@ async function addFileToDatabase(filename) {
         request.onerror = () => reject(request.error);
     });
 
-    // Wait for the transaction to complete to ensure durability
+    // Wait for the transaction to complete
     await new Promise((resolve, reject) => {
         tx.oncomplete = () => resolve();
         tx.onerror = () => reject(tx.error);
@@ -132,14 +132,12 @@ async function getFilesFromDatabase() {
     const tx = db.transaction('files', 'readonly');
     const store = tx.objectStore('files');
 
-    // Await getAll request
     const records = await new Promise((resolve, reject) => {
         const request = store.getAll();
         request.onerror = () => reject(request.error);
         request.onsuccess = () => resolve(request.result);
     });
 
-    // Map records into desired structure
     const files = records.map(({ filename, htmlContent, savedAt }) => {
         const file = new File(
             [htmlContent],

@@ -102,7 +102,7 @@ section {
   box-shadow: 0 0.125rem 0.5rem var(--section-shadow);
   max-width: 60rem;
 
-  /* Fade in from bottom */
+  /* Fade in */
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 1s ease forwards;
@@ -250,7 +250,7 @@ iframe#display {
   color: var(--loading-color);
 }
 
-/* Responsive Enhancements */
+/* Responsive */
 @media (max-width: 600px) {
   section {
     padding: 0.9375rem;
@@ -277,7 +277,6 @@ iframe#display {
 /* Link Styles */
 a {
   color: #5a2ea6;
-  /* nice purple for light mode */
   text-decoration: underline;
   cursor: pointer;
   transition: color 0.3s;
@@ -286,7 +285,6 @@ a {
 a:hover,
 a:focus {
   color: #8e44ad;
-  /* slightly lighter purple on hover/focus */
   outline: none;
   text-decoration: none;
 }
@@ -295,7 +293,6 @@ a:focus {
 @media (prefers-color-scheme: dark) {
   a {
     color: #a299f9;
-    /* lighter purple for dark mode */
   }
 
   a:hover,

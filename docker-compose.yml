@@ -1,0 +1,4 @@
+services:
+    websave:
+        image: websave
+        command: ['--arg', 'build', 'true', '--arg', 'run', 'true']

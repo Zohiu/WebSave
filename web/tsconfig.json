@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2023",
+    "moduleResolution": "node",
+
+    /* Emit */
+    "rootDir": "src",
+    "outDir": "../dist/src",
+
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+    "skipLibCheck": true
+  },
+
+  "include": ["src"]
+}

@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+}
+
+#loading {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    pointer-events: none;
+
+    color: white;
+
+    transition-duration: 200ms;
+
+    backdrop-filter: blur(0.1rem) brightness(0.5);
+}
+
+#loading > img {
+    width: 15rem;
+}
+
+#loading > div {
+    gap: 1rem;
+}
+
+#loading #load-abort {
+    pointer-events: all;
+    height: 2rem;
+}
+
+/* Flex things */
+.centered-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vertical {
+    flex-direction: column;
+}

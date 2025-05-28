@@ -1,13 +1,13 @@
 {
-    "name": "WebSave",
-    "icons": [
-        {
-            "src": "lib/img/icon.png",
-            "sizes": "256x256",
-            "type": "image/png"
-        }
-    ],
-    "lang": "en-US",
-    "start_url": "/index.html",
-    "display": "standalone"
+  "name": "WebSave",
+  "icons": [
+    {
+      "src": "lib/img/icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ],
+  "lang": "en-US",
+  "start_url": "/index.html",
+  "display": "standalone"
 }

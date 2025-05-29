@@ -1,42 +1,378 @@
+:root {
+    /* Colors */
+    color-scheme: dark light;
+
+    --background: light-dark(#f9f5ff, #04000a);
+    /* light-dark doesn't work with gradients. See below for light theme version. */
+    --gradient-background: linear-gradient(45deg, #301a7a 0%, #644b5e 100%);
+    --object-background: light-dark(#fdecfb, #08030d);
+
+    --primary: light-dark(#845fff, #5f39db);
+    --primary-desaturated: light-dark(#6d638d, #2d2a38);
+    --secondary: light-dark(#e993cb, #e9bedf);
+
+    --text: light-dark(#000000, #eaeaea);
+    --text-gradient: linear-gradient(
+        to right,
+        var(--primary) 0%,
+        var(--secondary) 100%
+    );
+
+    --border-color: light-dark(#6d638d, #2d2a38);
+
+    /* Sizes */
+    --object-margin: 2em;
+    --object-padding: 2em;
+
+    --small-padding: 0.333em;
+
+    --big-border-radius: 1.333em;
+    --small-border-radius: 0.333em;
+
+    /* Animation stuff */
+    --transition-duration: 100ms;
+
+    /* Sizes - scale ratio 1.333 - perfect fourth */
+    --size6: 5.61rem;
+    --size5: 4.21rem;
+    --size4: 3.16rem;
+    --size3: 2.37rem;
+    --size2: 1.79rem;
+    --size1: 1.33rem;
+    --size0: 1rem;
+    --size-1: 0.77rem;
+    --size-2: 0.59rem;
+    --size-3: 0.45rem;
+    --size-4: 0.35rem;
+    --size-5: 0.18rem;
+}
+@media (prefers-color-scheme: light) {
+    :root {
+        --gradient-background: linear-gradient(0deg, #845fff 0%, #e993cb 100%);
+    }
+}
+
+* {
+    font-family: sans-serif;
+}
+
+h1 {
+    font-size: var(--size4);
+}
+h2 {
+    font-size: var(--size3);
+}
+h3 {
+    font-size: var(--size2);
+}
+h4 {
+    font-size: var(--size1);
+}
+h5 {
+    font-size: var(--size0);
+}
 body {
-    margin: 0;
+    font-size: var(--size0);
+}
+caption {
+    font-size: var(--size-2);
+}
+small {
+    font-size: var(--size-3);
+}
+code {
+    font-family: monospace;
+}
+
+/* Basic HTML styling */
+
+body {
+    background: var(--background);
+    background: var(--gradient-background);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     min-height: 100vh;
-    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    max-width: 100vw;
+    margin: 0;
+    gap: 2rem;
 }
 
-#loading {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    pointer-events: none;
-
-    color: white;
-
-    transition-duration: 200ms;
-
-    backdrop-filter: blur(0.1rem) brightness(0.5);
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
-#loading > img {
-    width: 15rem;
+section,
+article,
+form {
+    background: var(--object-background);
+    margin: var(--object-margin);
+    padding: var(--object-padding);
+    border-radius: var(--big-border-radius);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+
+    box-shadow: 0 0 0.5rem var(--border-color);
 }
 
-#loading > div {
+/* Text styling */
+h1,
+h2 {
+    background: var(--text-gradient);
+    background-clip: text;
+    color: transparent;
+}
+
+h1 {
+    align-self: center;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-top: var(--size0);
+    margin-bottom: var(--size0);
+}
+
+li {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent);
+    position: relative;
+    transition-duration: var(--transition-duration);
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: var(--accent);
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+a:hover::after,
+a:focus::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+a:hover,
+a:focus {
+    color: var(--primary);
+}
+
+/* - Tag styling - */
+
+/* Buttons */
+button,
+input[type='button'],
+input[type='submit'] {
+    background: var(--primary);
+    border-radius: var(--small-border-radius);
+    border: none;
+    transition-duration: var(--transition-duration);
+    font-size: var(--size0);
+    font-weight: 700;
+    padding: var(--size-3);
+
+    margin-top: var(--size-2);
+    margin-bottom: var(--size-2);
+}
+button:hover,
+input[type='button']:hover,
+input[type='submit']:hover {
+    background: var(--primary-desaturated);
+    scale: 1.05;
+    outline: solid var(--secondary);
+    z-index: 0;
+}
+button :is(h1, h2, h3, h4, h5, h6),
+input[type='button'] :is(h1, h2, h3, h4, h5, h6),
+input[type='submit'] :is(h1, h2, h3, h4, h5, h6) {
+    background: none;
+    color: var(--text);
+    margin: var(--size0);
+}
+
+/* Inputs */
+input,
+textarea {
+    background: var(--primary-desaturated);
+    border-radius: var(--small-border-radius);
+    border: none;
+
+    font-size: var(--size-0);
+    padding: var(--size-3);
+
+    margin-top: var(--size-2);
+    margin-bottom: var(--size-2);
+}
+
+textarea {
+    resize: none;
+}
+
+/* Range inputs (Firefox only) */
+input[type='range'] {
+    background-color: transparent;
+}
+input[type='range']::-moz-range-progress {
+    background-color: var(--primary);
+}
+input[type='range']::-moz-range-track {
+    background-color: var(--primary-desaturated);
+}
+input[type='range']:focus {
+    outline: none;
+}
+
+hr {
+    color: var(--text);
+}
+
+/* Select profiles */
+#profile-selection {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 2fr;
+    align-items: center;
     gap: 1rem;
 }
 
-#loading #load-abort {
-    pointer-events: all;
-    height: 2rem;
+#create-profile {
+    margin-top: 2rem;
+    align-self: center;
 }
 
-/* Flex things */
-.centered-container {
+/* Website display */
+#back {
+    left: 1rem;
+    top: 1rem;
+
+    position: fixed;
+    z-index: 2;
+    margin: 0;
+}
+
+iframe {
+    top: 0;
+    left: 0;
+    position: absolute;
+    border: none;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
+
+/* Loading */
+#loading {
+    position: fixed;
+    min-height: 100vh;
+    min-width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+
+    backdrop-filter: blur(0.25rem) brightness(0.5);
+    z-index: 3;
 }
 
-.vertical {
-    flex-direction: column;
+#loading > * {
+    filter: drop-shadow(0 0 1rem black);
+}
+
+#loading > img {
+    pointer-events: none;
+    user-select: none;
+}
+
+#loading > h1 {
+    margin: 1rem;
+    pointer-events: none;
+    user-select: none;
+}
+
+#loading > h1::after {
+    content: "";
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0% {
+        content: '';
+    }
+    25% {
+        content: '.';
+    }
+    50% {
+        content: '..';
+    }
+    75% {
+        content: '...';
+    }
+}
+
+@media (max-width: 600px) {
+    section,
+    article,
+    form {
+        border-radius: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        flex: 1;
+        margin: 0;
+        box-sizing: border-box;
+        border: 0;
+        width: 100%;
+    }
+
+    body {
+        display: flex;
+    }
+
+    main {
+        width: 100%;
+        flex: 1;
+    }
+
+    main {
+        gap: 0;
+        margin-top: 0;
+    }
+
+    #profile-selection {
+        display: grid;
+        grid-template-columns: none;
+        align-items: center;
+        margin-bottom: 1rem;
+        box-shadow: 0 0 0.5rem var(--border-color);
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    #create-profile {
+        margin-top: 0;
+    }
+}
+
+
+
+/* Make sure hidden elements are actually hidden. */
+*[hidden], *[hidden] * {
+    display: none !important;
 }

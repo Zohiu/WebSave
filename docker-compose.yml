@@ -1,4 +1,6 @@
 services:
-    websave:
-        image: websave
-        command: ['--arg', 'build', 'true', '--arg', 'run', 'true']
+  websave:
+    image: websave
+    environment:
+      HOST: "0.0.0.0"
+      PORT: 8080

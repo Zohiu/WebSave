@@ -1,4 +1,5 @@
-import { StorageAdapter } from '../storage.js'
+import { removePrefix, removeSuffix } from '../../helpers.js'
+import { StorageAdapter } from '../adapter.js'
 
 // Typescript does not officially define these because they have limited availability.
 // Since we test for availability, it's safe to define the types ourselves.
@@ -14,6 +15,7 @@ interface ModernWindow extends Window {
 }
 
 export class DirectoryStorage extends StorageAdapter {
+    static name = 'Local Directory'
     static defaultOptions = {
         _selectedDir: Object as unknown as ModernFileSystemDirectoryHandle,
         fileExtension: '.html',
@@ -47,7 +49,7 @@ export class DirectoryStorage extends StorageAdapter {
     async save(title: string, content: string): Promise<boolean> {
         if (!(await this.requestPermission())) return false
         const file = await this.options._selectedDir.getFileHandle(
-            `${title}${this.options.fileExtension}`,
+            `${encodeURIComponent(title)}${this.options.fileExtension}`,
             { create: true }
         )
         const writable = await file.createWritable()
@@ -60,7 +62,7 @@ export class DirectoryStorage extends StorageAdapter {
         if (!(await this.requestPermission())) return false
         try {
             await this.options._selectedDir.removeEntry(
-                `${title}${this.options.fileExtension}`
+                `${encodeURIComponent(title)}${this.options.fileExtension}`
             )
             return true
         } catch (error) {
@@ -79,7 +81,16 @@ export class DirectoryStorage extends StorageAdapter {
                 entry.kind === 'file' &&
                 entry.name.endsWith(this.options.fileExtension)
             ) {
-                sites.push(await (entry as FileSystemFileHandle).getFile())
+                const file = await (entry as FileSystemFileHandle).getFile()
+                sites.push(
+                    new File(
+                        [file],
+                        decodeURIComponent(
+                            removeSuffix(file.name, this.options.fileExtension)
+                        ),
+                        { type: file.type }
+                    )
+                )
             }
         }
         return sites

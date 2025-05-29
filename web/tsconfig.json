@@ -6,7 +6,7 @@
 
     /* Emit */
     "rootDir": "src",
-    "outDir": "../dist/src",
+    "outDir": ".dist/src",
 
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

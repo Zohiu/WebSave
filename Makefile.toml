@@ -1,0 +1,70 @@
+[tasks.build-backend]
+command = "cargo"
+args = ["build", "--release"]
+
+[tasks.build-frontend]
+script = [
+    "cd web",
+    "rm -rf .dist",
+    "tsc",
+    "lightningcss --minify --bundle css/* --output-dir .dist/css",
+    "esbuild --minify --outdir=.dist --bundle=true --format=esm .dist/src/main.js",
+    "rm -r .dist/src/*",
+    "mv .dist/main.js .dist/src/",
+    "cp -rd assets .dist/",
+    "cp index.html .dist/",
+    "cp manifest.json .dist/",
+    "cp sw.js .dist/",
+]
+
+[tasks.bundle]
+script = [
+    "rm -rf release",
+    "mkdir -p release release/dist",
+    "cp target/release/WebSave release/",
+    "cp -r web/.dist/* release/dist/",
+]
+
+[tasks.build]
+clear = true
+dependencies = ["build-backend", "build-frontend", "bundle"]
+
+[tasks.build-release]
+clear = true
+alias = "build"
+
+[tasks.debug]
+script = [
+    # Clean and create debug folder structure
+    "[ -e .dist ] && rm -rf debug/",
+    "mkdir -p debug debug/dist",
+
+    # Run backend in debug folder in background
+    "cd debug && cargo run &",
+
+    # Frontend watch loop
+    "cd web && while true; do",
+    "  inotifywait -e modify,create,delete -r --exclude '.dist/*' .;",
+    "  echo 'Compiling TypeScript -> JavaScript';",
+    "  tsc;",
+    "  lightningcss --minify --bundle css/* --output-dir .dist/css;",
+    "  echo 'Copying static files';",
+    "  cp -rd assets .dist/;",
+    "  cp index.html .dist/;",
+    "  cp manifest.json .dist/;",
+    "  cp sw.js .dist/;",
+    "  echo 'Copying to debug/';",
+    "  cp -r .dist/* ../debug/dist;",
+    "done",
+]
+
+[tasks.clean]
+clear = true
+script = [
+    "rm -rd target",
+    "rm -rd web/.dist",
+    "rm -rd web/.node_modules",
+]
+
+[tasks.run]
+script = ["cd release", "./WebSave"]

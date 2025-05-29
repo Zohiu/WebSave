@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-// All methods can be async if the storage type requires it.
-// available() and create() must be static.
 export class StorageAdapter {
     static defaultOptions = {}
     options: typeof StorageAdapter.defaultOptions = {}

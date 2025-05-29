@@ -1,4 +1,4 @@
-const cacheName = 'websave-v1';
+const cacheName = 'websave-v2';
 
 
 const addResourcesToCache = async (resources) => {
@@ -12,19 +12,17 @@ self.addEventListener("install", (event) => {
     addResourcesToCache([
       "/",
       "/index.html",
-      '/lib/css/style.css',
-      '/lib/js/main.js',
-      '/lib/img/icon.png',
-      '/favicon.png',
+      '/css/style.css',
+      '/src/main.js',
+
+      '/assets/loading.svg',
+      '/assets/favicon.png',
+      '/assets/icons/icon-192.png',
+      '/assets/icons/icon-512.png',
     ])
   );
 });
 
-
-const putInCache = async (request, response) => {
-  const cache = await caches.open(cacheName);
-  await cache.put(request, response);
-};
 
 const cacheFirst = async (request, event) => {
   const responseFromCache = await caches.match(request);
@@ -32,7 +30,6 @@ const cacheFirst = async (request, event) => {
     return responseFromCache;
   }
   const responseFromNetwork = await fetch(request);
-  event.waitUntil(putInCache(request, responseFromNetwork.clone()));
   return responseFromNetwork;
 };
 
@@ -41,5 +38,5 @@ self.addEventListener("fetch", (event) => {
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(self.registration?.navigationPreload.enable());
+    event.waitUntil(self.registration?.navigationPreload.enable());
 });

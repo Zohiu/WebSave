@@ -1,4 +1,10 @@
-__pycache__/
 .vscode/
-dist/
-node_modules/
+.node_modules/
+
+.dist/
+release/
+debug/
+
+# Added by cargo
+
+/target

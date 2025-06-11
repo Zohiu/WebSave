@@ -10,8 +10,8 @@ A progressive web app built with the help of [Single File](https://www.getsingle
 There are different ways to store files - not every way is supported on all browsers. You can use multiple storages at the same time.
 
 -   **Directory:** Grant the app full access to a local directory, which it will then use to save and load sites. Supported by Chrome, Edge, and Opera in addition to some Android browsers.
--   **IndexedDB**: Store sites directly inside the browser's built-in storage. Pretty much every modern browser supports this, but there is a [size limit](https://rxdb.info/articles/indexeddb-max-storage-limit.html#browser-specific-indexeddb-limits)
--   **Download**: Directly download the html files. This options works everywhere, but does not allow viewing and managing saved websites within the app.
+-   **IndexedDB (unfinished!)**: Store sites directly inside the browser's built-in storage. Pretty much every modern browser supports this, but there is a [size limit](https://rxdb.info/articles/indexeddb-max-storage-limit.html#browser-specific-indexeddb-limits)
+-   **Download (unfinished!)**: Directly download the html files. This options works everywhere, but does not allow viewing and managing saved websites within the app.
 
 ## Development
 

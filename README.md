@@ -45,4 +45,4 @@ you can set the `HOST` and `PORT` environment variables to change the repsective
 
 ## HTTPS
 
-By default, this will only run as a basic HTTP server, so you'll have to setup your own proxy. An easy-to-setup solution for this is [Caddy](https://caddyserver.com/). Alternatively, you can use the official [Nginx example](https://docs.gunicorn.org/en/latest/deploy.html).
+By default, this will only run as a basic HTTP server, so you'll have to setup your own proxy. An easy-to-setup solution for this is [Caddy](https://caddyserver.com/).

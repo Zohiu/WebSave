@@ -2,7 +2,8 @@
 
 <img src="./web/assets/icons/icon.png" width="50" height="50"/>
 
-A progressive web app built with the help of [Single File](https://www.getsinglefile.com/) that allows you to save the current state of websites locally for offline viewing.
+A progressive web app built with the help of [Single File](https://www.getsinglefile.com/) that allows you to save the current state of websites locally for offline viewing. An instance is available at https://websave.catgirl.click/
+
 
 ## Storage
 
